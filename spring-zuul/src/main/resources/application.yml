@@ -1,0 +1,31 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8888/eureka/
+server:
+  port: 8870
+spring:
+  application:
+    name: service-zuul
+zuul:
+  host:
+    connect-timeout-millis: 10000
+    socket-timeout-millis: 60000
+  routes:
+    api-a:
+      path: /api-member/**
+      service-id: service-member
+    api-b:
+      path: /api-order/**
+      service-id: service-order
+    api-c:
+      path: /api-order-feign/**
+      service-id: service-order-feign
+###超时时间
+hystrix:
+   command: 
+     default: 
+       execution: 
+        isolation:
+         thread: 
+          timeoutInMilliseconds: 4000
